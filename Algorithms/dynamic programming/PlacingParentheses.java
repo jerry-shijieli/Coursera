@@ -20,12 +20,18 @@ public class PlacingParentheses {
             maxMat[i][i] = digits[i];
         }
         for (int s=0; s<n-1; s++){
-            for (int i=0; i<n-s; i++){
-                int j = s + i;
+            for (int i=0; i<n-s-1; i++){
+                int j = s + i + 1;
                 MinAndMax(i, j, op);
             }
         }
-      return maxMat[0][n-1];
+        // print the max matrix
+        // for (int i=0; i<n; i++){
+        //     for (int j=0; j<n; j++)
+        //         System.out.print(maxMat[i][j]+" ");
+        //     System.out.println();
+        // }
+        return maxMat[0][n-1];
     }
 
     private static void MinAndMax(int i, int j, char[] op){
@@ -36,9 +42,11 @@ public class PlacingParentheses {
             long b = eval(maxMat[i][k], minMat[k+1][j], op[k]);
             long c = eval(minMat[i][k], maxMat[k+1][j], op[k]);
             long d = eval(minMat[i][k], minMat[k+1][j], op[k]);
-            minMat[i][j] = minfunc(minval, a, b, c, d);
-            maxMat[i][j] = maxfunc(maxval, a, b, c, d);
+            minval = minfunc(minval, a, b, c, d);
+            maxval = maxfunc(maxval, a, b, c, d);
         }
+        minMat[i][j] = minval;
+        maxMat[i][j] = maxval;
     }
 
     private static long minfunc(long r, long a, long b, long c, long d){
