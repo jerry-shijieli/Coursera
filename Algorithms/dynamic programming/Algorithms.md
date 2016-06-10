@@ -15,7 +15,7 @@ return MinNumCoins[money]
 
 ```c
 // Dynamic Programming example: minimum editing distance
-EditDistance(A[1...n], B[1...n]) is 
+EditDistance(A[1...n], B[1...m]) is 
 
 D[i, 0] = i and D[0, j] for all i,j
 for j from 1 to m:
