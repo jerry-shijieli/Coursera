@@ -5,7 +5,14 @@ public class Fibonacci {
     if (n <= 1)
       return n;
 
-    return calc_fib(n - 1) + calc_fib(n - 2);
+    long f0 = 0, f1=1, f2=0;
+    for (int i=2; i<=n; i++){
+        f2 = f1 + f0;
+        f0 = f1;
+        f1 = f2;
+    }
+    return f2;
+    //return calc_fib(n - 1) + calc_fib(n - 2);
   }
 
   public static void main(String args[]) {
