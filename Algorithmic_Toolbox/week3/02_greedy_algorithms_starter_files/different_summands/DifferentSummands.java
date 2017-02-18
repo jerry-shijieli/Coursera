@@ -34,7 +34,6 @@ public class DifferentSummands {
             if (i!=summands.size()-1)
                 System.out.print(" ");
         }
-        System.out.println();
     }
 }
 
