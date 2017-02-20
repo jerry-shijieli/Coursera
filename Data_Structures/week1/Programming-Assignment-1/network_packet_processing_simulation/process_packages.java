@@ -30,7 +30,44 @@ class Buffer {
 
     public Response Process(Request request) {
         // write your code here
-        return new Response(false, -1);
+        // If buffer is empty
+        if (this.finish_time_.isEmpty()){
+            this.finish_time_.add(request.arrival_time+request.process_time);
+            return new Response(false, request.arrival_time);
+        }
+        // when packet arrive but buffer is not empty
+        // while (!this.finish_time_.isEmpty()){
+        //     if (this.finish_time_.get(0) <= request.arrival_time)
+        //         this.finish_time_.remove(0);
+        //     else
+        //         break;
+        // }
+        // if (!this.finish_time_.isEmpty())
+        //     Collections.sort(this.finish_time_); //sort finish time
+        int index = 0, count=0;
+        while (index<this.finish_time_.size()){
+            if (this.finish_time_.get(index++) <= request.arrival_time)
+                 count = index;
+        }
+
+        if (!this.finish_time_.isEmpty()){
+            ArrayList<Integer> to_process_list = new ArrayList<Integer>();
+            for (int i=count; i<this.finish_time_.size(); i++)
+                to_process_list.add(this.finish_time_.get(i));
+            this.finish_time_ = to_process_list; // remove all processed
+        }
+
+        if (this.finish_time_.size() == this.size_) // buffer full, then drop
+            return new Response(true, -1); 
+        else if (this.finish_time_.isEmpty()){ // all previous packets are processed
+            this.finish_time_.add(request.arrival_time+request.process_time);
+            return new Response(false, request.arrival_time); 
+        } else { // wait in buffer
+            int start_time = this.finish_time_.get(this.finish_time_.size()-1);
+            this.finish_time_.add(start_time+request.process_time);
+            return new Response(false, start_time);
+        }
+        // return new Response(false, -1);
     }
 
     private int size_;
