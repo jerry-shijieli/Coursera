@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 class Request {
     public Request(int arrival_time, int process_time) {
@@ -36,27 +37,14 @@ class Buffer {
             return new Response(false, request.arrival_time);
         }
         // when packet arrive but buffer is not empty
-        // while (!this.finish_time_.isEmpty()){
-        //     if (this.finish_time_.get(0) <= request.arrival_time)
-        //         this.finish_time_.remove(0);
-        //     else
-        //         break;
-        // }
-        // if (!this.finish_time_.isEmpty())
-        //     Collections.sort(this.finish_time_); //sort finish time
-        int index = 0, count=0;
-        while (index<this.finish_time_.size()){
-            if (this.finish_time_.get(index++) <= request.arrival_time)
-                 count = index;
-        }
-
-        if (!this.finish_time_.isEmpty()){
-            ArrayList<Integer> to_process_list = new ArrayList<Integer>();
-            for (int i=count; i<this.finish_time_.size(); i++)
-                to_process_list.add(this.finish_time_.get(i));
-            this.finish_time_ = to_process_list; // remove all processed
-        }
-
+        int index = Collections.binarySearch(this.finish_time_, request.arrival_time);
+        index = (index<0)? -(index+1): index+1; 
+        if (index == this.finish_time_.size())
+            this.finish_time_.clear();
+        else
+            this.finish_time_.subList(0,index).clear(); // remove all processed
+        
+        // compute process start time and update finish time
         if (this.finish_time_.size() == this.size_) // buffer full, then drop
             return new Response(true, -1); 
         else if (this.finish_time_.isEmpty()){ // all previous packets are processed
