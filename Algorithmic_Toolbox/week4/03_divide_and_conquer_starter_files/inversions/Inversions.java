@@ -11,6 +11,34 @@ public class Inversions {
         numberOfInversions += getNumberOfInversions(a, b, left, ave);
         numberOfInversions += getNumberOfInversions(a, b, ave, right);
         //write your code here
+        for (int m=0; left+m<ave; m++){
+            for (int n=0; ave+n<right; n++){
+                if (a[left+m] > a[ave+n])
+                    numberOfInversions++;
+            }
+        }
+        int i=0, j=0;
+        int[] tmp = new int[right-left];
+        while (left+i<ave && ave+j<right){
+            if (b[left+i] <= b[ave+j]){
+                tmp[i+j] = b[left+i];
+                i++;
+            } else {
+                tmp[i+j] = b[ave+j];
+                j++;
+            }
+        }
+        while (left+i<ave){
+            tmp[i+j] = b[left+i];
+            i++;
+        }
+        while (ave+j<right){
+            tmp[i+j] = b[ave+j];
+            j++;
+        }
+        for (i=0; i<right-left; i++){
+            b[left+i] = tmp[i];
+        }
         return numberOfInversions;
     }
 
