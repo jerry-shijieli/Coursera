@@ -48,25 +48,24 @@ public class TrieMatching implements Runnable {
 		boolean result = false;
 
 		if (text==null || text.length()==0) return result;
-		int index = 0; // index of text char array
-		int lt = letterToIndex(text.charAt(index)); // first letter of text
+		//int index = 0; // index of text char array
+		//int lt = letterToIndex(text.charAt(index)); // first letter of text
 		int curNode = 0; // root of trie
-		while (true) {
+		for (int i=0; i<text.length(); i++){
+			int lt = letterToIndex(text.charAt(i));
 			if (curNode<trie.size() && trie.get(curNode).isLeaf){
 				result = true;
 				break;
-			} else if (curNode<trie.size() && !trie.get(curNode).isLeaf){
+			} else if (curNode<trie.size() && trie.get(curNode).next[lt]!=Node.NA){
 				curNode = trie.get(curNode).next[lt];
-				if (curNode==Node.NA) break; 
-				index++;
-				if (index < text.length())
-					lt = letterToIndex(text.charAt(index));
-				else
+				if (i==text.length()-1 && trie.get(curNode).isLeaf){
+					result = true;
 					break;
+				}
 			} else 
 				break;
 		}
-		System.out.println(text+"--"+result+"-"+index);
+		//System.out.println(text+"--"+result);
 		return result;
 	}
 

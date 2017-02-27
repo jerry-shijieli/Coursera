@@ -33,8 +33,67 @@ public class TrieMatchingExtended implements Runnable {
 		List <Integer> result = new ArrayList <Integer> ();
 
 		// write your code here
+		List<Node> trie = trieConstruction(patterns);
+		for (int i=0; i<text.length(); i++){
+			String subtext = text.substring(i);
+			boolean tmp = prefixTrieMatching(subtext, trie);
+			if (tmp) result.add(i);
+		}
+		Collections.sort(result);
 
 		return result;
+	}
+
+	private boolean prefixTrieMatching(String text, List<Node> trie){
+		boolean result = false;
+
+		if (text==null || text.length()==0) return result;
+		//int index = 0; // index of text char array
+		//int lt = letterToIndex(text.charAt(index)); // first letter of text
+		int curNode = 0; // root of trie
+		for (int i=0; i<text.length(); i++){
+			int lt = letterToIndex(text.charAt(i));
+			if (curNode<trie.size() && trie.get(curNode).patternEnd){
+				result = true;
+				break;
+			} else if (curNode<trie.size() && trie.get(curNode).next[lt]!=Node.NA){
+				curNode = trie.get(curNode).next[lt];
+				if (i==text.length()-1 && trie.get(curNode).patternEnd){
+					result = true;
+					break;
+				}
+			} else 
+				break;
+		}
+		
+		return result;
+	}
+
+	private List<Node> trieConstruction(List<String> patterns){
+		List<Node> trie = new ArrayList<Node>();
+
+		trie.add(new Node());
+		for (String pt: patterns){
+			int curNode = 0; // index of current node
+			for (int i=0; i<pt.length(); i++){
+				int lt = letterToIndex(pt.charAt(i)); // convert letter to int index
+				if (curNode<trie.size() && lt>=0 && trie.get(curNode).next[lt]!=Node.NA){ // if contains letter
+					curNode = trie.get(curNode).next[lt]; // go to next node
+					if (i==pt.length()-1)
+						trie.get(curNode).patternEnd = true;
+				}else { // not contain, add new node
+					trie.add(new Node());
+					int newNode = trie.size() - 1;
+					trie.get(curNode).next[lt] = newNode;
+					if (i==pt.length()-1)
+						trie.get(newNode).patternEnd = true;
+					curNode = newNode;
+				}
+				//System.out.println(curNode+"--"+trie.get(curNode).patternEnd+"-"+lt);
+			}
+		}
+
+		return trie;
 	}
 
 	public void run () {
