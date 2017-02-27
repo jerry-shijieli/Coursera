@@ -1,10 +1,33 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Reachability {
     private static int reach(ArrayList<Integer>[] adj, int x, int y) {
         //write your code here
-        return 0;
+        int result = 0;
+        if (x<0 || x>=adj.length || y<0 || y>=adj.length) return result;
+        boolean[] visited = new boolean[adj.length];
+        Stack<Integer> nodes = new Stack<Integer>();
+        nodes.push(x);
+        visited[x] = true;
+        while (!nodes.isEmpty()){
+            int nd = nodes.pop();
+            if (!adj[nd].isEmpty()){
+                for (Integer i: adj[nd]){
+                    if (i==y){
+                        result = 1;
+                        break;
+                    }
+                    if(!visited[i]){
+                        nodes.push(i);
+                        visited[i] = true;
+                    }   
+                }
+            }
+        }
+
+        return result;
     }
 
 
