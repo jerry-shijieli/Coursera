@@ -39,16 +39,48 @@ public class BuildHeap {
       // but in the worst case gives a quadratic number of swaps.
       //
       // TODO: replace by a more efficient implementation
-      for (int i = 0; i < data.length; ++i) {
-        for (int j = i + 1; j < data.length; ++j) {
-          if (data[i] > data[j]) {
-            swaps.add(new Swap(i, j));
-            int tmp = data[i];
-            data[i] = data[j];
-            data[j] = tmp;
-          }
-        }
+      // for (int i = 0; i < data.length; ++i) {
+      //   for (int j = i + 1; j < data.length; ++j) {
+      //     if (data[i] > data[j]) {
+      //       swaps.add(new Swap(i, j));
+      //       int tmp = data[i];
+      //       data[i] = data[j];
+      //       data[j] = tmp;
+      //     }
+      //   }
+      // }
+      // build min-heap
+      int size = data.length;
+      for (int i=size/2-1; i>=0; i--){
+        siftDown(data, i);
       }
+    }
+
+    private void siftDown(int[] data, int index){
+        // sift large node down
+        int size = data.length;
+        int minIndex = index;
+        int left = leftChild(index);
+        if (left<size && data[left]<data[minIndex])
+            minIndex = left;
+        int right = rightChild(index);
+        if (right<size && data[right]<data[minIndex])
+            minIndex = right;
+        if (index != minIndex){
+            swaps.add(new Swap(index, minIndex));
+            int tmp = data[index];
+            data[index] = data[minIndex];
+            data[minIndex] = tmp;
+            siftDown(data, minIndex);
+        }
+    }
+
+    private int leftChild(int index){
+        return 2*index+1;
+    }
+
+    private int rightChild(int index){
+        return 2*(index+1);
     }
 
     public void solve() throws IOException {
