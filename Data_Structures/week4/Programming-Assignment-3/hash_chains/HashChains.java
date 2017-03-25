@@ -3,13 +3,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.LinkedList;
 
 public class HashChains {
 
     private FastScanner in;
     private PrintWriter out;
     // store all strings in one list
-    private List<String> elems;
+    // private List<String> elems;
+    private LinkedList<String>[] elems;
     // for hash function
     private int bucketCount;
     private int prime = 1000000007;
@@ -44,22 +46,35 @@ public class HashChains {
     }
 
     private void processQuery(Query query) {
+        int index = -1;
+        if (!query.type.equals("check"))
+            index = hashFunc(query.s);
         switch (query.type) {
             case "add":
-                if (!elems.contains(query.s))
-                    elems.add(0, query.s);
+                // if (!elems.contains(query.s))
+                //     elems.add(0, query.s);
+                if (elems[index] == null)
+                    elems[index] = new LinkedList<String>();
+                if (!elems[index].contains(query.s))
+                    elems[index].addFirst(query.s);
                 break;
             case "del":
-                if (elems.contains(query.s))
-                    elems.remove(query.s);
+                // if (elems.contains(query.s))
+                //     elems.remove(query.s);
+                if (elems[index] != null && elems[index].contains(query.s))
+                    elems[index].remove(query.s);
                 break;
             case "find":
-                writeSearchResult(elems.contains(query.s));
+                writeSearchResult(elems[index]==null? false: elems[index].contains(query.s));
                 break;
             case "check":
-                for (String cur : elems)
-                    if (hashFunc(cur) == query.ind)
-                        out.print(cur + " ");
+                // for (String cur : elems)
+                //     if (hashFunc(cur) == query.ind)
+                //         out.print(cur + " ");
+                if (elems[query.ind] != null){
+                    for (String cur: elems[query.ind])
+                    out.print(cur+" ");
+                }
                 out.println();
                 // Uncomment the following if you want to play with the program interactively.
                 // out.flush();
@@ -70,10 +85,11 @@ public class HashChains {
     }
 
     public void processQueries() throws IOException {
-        elems = new ArrayList<>();
+        // elems = new ArrayList<>();
         in = new FastScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out));
         bucketCount = in.nextInt();
+        elems = (LinkedList<String>[])new LinkedList[bucketCount]; // array of lists
         int queryCount = in.nextInt();
         for (int i = 0; i < queryCount; ++i) {
             processQuery(readQuery());
