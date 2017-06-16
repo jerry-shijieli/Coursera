@@ -40,27 +40,54 @@ public class tree_orders {
 
 		List<Integer> inOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
-                        // Finish the implementation
-                        // You may need to add a new recursive method to do that
-                        
+            // Finish the implementation
+            // You may need to add a new recursive method to do that
+            inorder(0, key, left, right, result);
+            
 			return result;
 		}
+
+        void inorder(int index, int[] key, int[] left, int[] right, ArrayList<Integer> result){
+            if (index>=0 && index<key.length && key[index]!=-1){
+                inorder(left[index], key, left, right, result);
+                result.add(key[index]);
+                inorder(right[index], key, left, right, result);
+            }
+        }
 
 		List<Integer> preOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
                         // Finish the implementation
                         // You may need to add a new recursive method to do that
+            preorder(0, key, left, right, result);
                         
 			return result;
 		}
+
+        void preorder(int index, int[] key, int[] left, int[] right, ArrayList<Integer> result){
+            if (index>=0 && index<key.length && key[index]!=-1){
+                result.add(key[index]);
+                preorder(left[index], key, left, right, result);
+                preorder(right[index], key, left, right, result);
+            }
+        }
 
 		List<Integer> postOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
                         // Finish the implementation
                         // You may need to add a new recursive method to do that
+            postorder(0, key, left, right, result);
                         
 			return result;
 		}
+
+        void postorder(int index, int[] key, int[] left, int[] right, ArrayList<Integer> result){
+            if (index>=0 && index<key.length && key[index]!=-1){
+                postorder(left[index], key, left, right, result);
+                postorder(right[index], key, left, right, result);
+                result.add(key[index]);
+            }
+        }
 	}
 
 	static public void main(String[] args) throws IOException {

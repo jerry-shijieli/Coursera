@@ -35,6 +35,7 @@ public class is_bst {
 
         int nodes;
         Node[] tree;
+        Node prev = null;
 
         void read() throws IOException {
             FastScanner in = new FastScanner();
@@ -47,7 +48,26 @@ public class is_bst {
 
         boolean isBinarySearchTree() {
           // Implement correct algorithm here
-          return true;
+            // Use in-order traversal to verify BST: current > previous
+            if (tree.length == 0) return true;
+
+            return isBST(0, tree);
+        }
+
+        boolean isBST(int index, Node[] tree){
+            if (index>=0 && index<=tree.length && tree[index].key!=-1){
+                if (!isBST(tree[index].left, tree))
+                    return false;
+                if (prev!=null && tree[index].key<=prev.key)
+                    return false;
+                prev = tree[index];
+                return isBST(tree[index].right, tree);
+            }
+            return true;
+        }
+
+        boolean solve() {
+            return isBinarySearchTree();
         }
     }
 

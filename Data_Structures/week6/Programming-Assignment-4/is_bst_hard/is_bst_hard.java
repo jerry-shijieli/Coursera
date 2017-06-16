@@ -35,6 +35,7 @@ public class is_bst_hard {
 
         int nodes;
         Node[] tree;
+        Node prev = null;
 
         void read() throws IOException {
             FastScanner in = new FastScanner();
@@ -47,7 +48,28 @@ public class is_bst_hard {
 
         boolean isBinarySearchTree() {
           // Implement correct algorithm here
-          return true;
+            if (tree.length == 0) return true;
+            return isBST(0, tree, true);
+        }
+
+        boolean isBST(int index, Node[] tree, boolean isLeftChild){
+            if (index>=0 && index<=tree.length && tree[index].key!=-1){
+                if (!isBST(tree[index].left, tree, true))
+                    return false;
+                if (prev!=null) {
+                    if (isLeftChild && tree[index].key<=prev.key)
+                        return false;
+                    if (!isLeftChild && tree[index].key<prev.key)
+                        return false;
+                }
+                prev = tree[index];
+                return isBST(tree[index].right, tree, false);
+            }
+            return true;
+        }
+
+        boolean solve() {
+            return isBinarySearchTree();
         }
     }
 
