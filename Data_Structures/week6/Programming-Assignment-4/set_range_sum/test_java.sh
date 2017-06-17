@@ -1,9 +1,10 @@
 #!/bin/bash
-for f in *.java
-do
-    CODE=$f
-done
-PROGRAM=${CODE%.*}
+# for f in *.java
+# do
+#     CODE=$f
+# done
+# PROGRAM=${CODE%.*}
+PROGRAM=SetRangeSum
 SAMPLE=$1
 echo "Compile $PROGRAM.java:"
 javac -encoding UTF-8 $PROGRAM.java

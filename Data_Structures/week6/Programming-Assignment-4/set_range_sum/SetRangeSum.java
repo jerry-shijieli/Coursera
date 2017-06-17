@@ -188,11 +188,39 @@ public class SetRangeSum {
 
     void erase(int x) {
         // Implement erase yourself
-
+        VertexPair result = split(root, x);
+        Vertex target = result.left;
+        Vertex remainder = result.right;
+        boolean valueOnLeft = true;
+        if (result.left!=null && result.left.key==x){
+            // System.out.println("++++++ erase left");
+            target = result.left;
+            remainder = result.right;
+        } else if (result.right!=null && result.right.key==x){
+            // System.out.println("++++++ erase right");
+            target = result.right;
+            remainder = result.left;
+            valueOnLeft = false;
+        }
+        if (target!=null && target.key==x) {
+            Vertex parent = target.parent;
+            Vertex node = merge(target.left, target.right);
+            if (node != null)
+                node.parent = parent;
+            if (parent != null)
+                update(parent);
+            target = node;
+            
+        }
+        root = valueOnLeft? merge(target, remainder): merge(remainder, target);
     }
 
     boolean find(int x) {
         // Implement find yourself
+        VertexPair result = find(root, x);
+        // if found
+        if ((result.right!=null && result.right.key==x) || (result.left!=null && result.left.key==x))
+            return true;
 
         return false;
     }
@@ -206,6 +234,17 @@ public class SetRangeSum {
         Vertex right = middleRight.right;
         long ans = 0;
         // Complete the implementation of sum
+        left = splay(left);
+        update(left);
+        middle = splay(middle);
+        update(middle);
+        right = splay(right);
+        update(right);
+        if (middle!=null){
+            // update(middle);
+            ans += middle.key + (middle.left!=null? middle.left.sum: 0);
+        }
+        root = merge(merge(left, middle), right);
 
         return ans;
     }
