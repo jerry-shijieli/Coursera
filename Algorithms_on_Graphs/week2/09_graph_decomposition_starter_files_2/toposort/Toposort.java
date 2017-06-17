@@ -7,11 +7,28 @@ public class Toposort {
         int used[] = new int[adj.length];
         ArrayList<Integer> order = new ArrayList<Integer>();
         //write your code here
+        dfs(adj, used, order, 0);
+        Collections.reverse(order);
         return order;
     }
 
     private static void dfs(ArrayList<Integer>[] adj, int[] used, ArrayList<Integer> order, int s) {
       //write your code here
+        for (int v=0; v<adj.length; v++){
+            if (used[v]==0){
+                explore(v, adj, used, order, s+1);
+            }
+        }
+    }
+
+    private static void explore(int vertex, ArrayList<Integer>[] adj, int[] used, ArrayList<Integer> order, int s){
+        used[vertex] = s;
+        for (int v: adj[vertex]){
+            if (used[v] == 0)
+                explore(v, adj, used, order, s+1);
+        }
+        used[vertex] = s+1;
+        order.add(vertex);
     }
 
     public static void main(String[] args) {
