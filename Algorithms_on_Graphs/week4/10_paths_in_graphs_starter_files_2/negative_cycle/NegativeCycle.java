@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NegativeCycle {
+    private static final int INF = Integer.MAX_VALUE;
+    
     private static int negativeCycle(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost) {
         // write your code here
         int[] dist = new int[adj.length];
         int[] prev = new int[adj.length];
         for (int i=0; i<adj.length; i++){
-            dist[i] = Integer.MAX_VALUE;
+            dist[i] = INF;
             prev[i] = -1;
         }
         dist[0] = 0;
@@ -17,7 +19,7 @@ public class NegativeCycle {
                 for (int i=0; i<adj[u].size(); i++){
                     int v = adj[u].get(i);
                     int w_uv = cost[u].get(i);
-                    if (dist[u]!=Integer.MAX_VALUE && dist[v]>dist[u]+w_uv){
+                    if (dist[u]!=INF && dist[v]>dist[u]+w_uv){
                         dist[v] = dist[u] + w_uv;
                         prev[v] = u;
                     }
@@ -30,7 +32,7 @@ public class NegativeCycle {
             for (int i=0; i<adj[u].size(); i++){
                 int v = adj[u].get(i);
                 int w_uv = cost[u].get(i);
-                if (dist[u]!=Integer.MAX_VALUE && dist[v]>dist[u]+w_uv){
+                if (dist[u]!=INF && dist[v]>dist[u]+w_uv){
                     return 1;
                     // dist[v] = dist[u] + w_uv;
                     // prev[v] = u;

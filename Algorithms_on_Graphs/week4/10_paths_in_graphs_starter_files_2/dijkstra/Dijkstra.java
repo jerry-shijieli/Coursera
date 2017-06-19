@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class Dijkstra {
+    private static final int INF = Integer.MAX_VALUE;
+
     private static class Node {
         int id;
         int dist;
@@ -14,7 +16,8 @@ public class Dijkstra {
     }
 
     private static int extractMin(Node[] nodes, boolean[] isInQueue){
-        int minDist = Integer.MAX_VALUE, minIndex = -1;
+        int minDist = INF;
+        int minIndex = -1;
         for (int i=0; i<nodes.length; i++){
             if (isInQueue[i] && nodes[i].dist<minDist){
                 minDist = nodes[i].dist;
@@ -39,7 +42,7 @@ public class Dijkstra {
         Node[] nodes = new Node[adj.length];
         boolean[] isInQueue = new boolean[adj.length]; // flag whether in priority queue ordered by Node dist
         for (int i=0; i<adj.length; i++){
-            nodes[i] = new Node(i, Integer.MAX_VALUE, -1);
+            nodes[i] = new Node(i, INF, -1);
             isInQueue[i] = true;
         }
         nodes[s].dist = 0;
@@ -49,14 +52,14 @@ public class Dijkstra {
             for (int i=0; i<adj[u].size(); i++){
                 int v = adj[u].get(i);
                 int w_uv = cost[u].get(i);
-                if (nodes[u].dist!=Integer.MAX_VALUE && nodes[v].dist>nodes[u].dist+w_uv){
+                if (nodes[u].dist!=INF && nodes[v].dist>nodes[u].dist+w_uv){
                     nodes[v].dist = nodes[u].dist + w_uv;
                     nodes[v].prev = u;
                 }
             }
         }
 
-        return nodes[t].dist==Integer.MAX_VALUE? -1: nodes[t].dist;
+        return nodes[t].dist==INF? -1: nodes[t].dist;
     }
 
     public static void main(String[] args) {
