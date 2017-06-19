@@ -4,6 +4,41 @@ import java.util.Scanner;
 public class NegativeCycle {
     private static int negativeCycle(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost) {
         // write your code here
+        int[] dist = new int[adj.length];
+        int[] prev = new int[adj.length];
+        for (int i=0; i<adj.length; i++){
+            dist[i] = Integer.MAX_VALUE;
+            prev[i] = -1;
+        }
+        dist[0] = 0;
+        // apply Bellman-Ford algorithm (|V|-1) times for edge relaxing
+        for (int count=0; count<adj.length-1; count++){
+            for (int u=0; u<adj.length; u++){
+                for (int i=0; i<adj[u].size(); i++){
+                    int v = adj[u].get(i);
+                    int w_uv = cost[u].get(i);
+                    if (dist[u]!=Integer.MAX_VALUE && dist[v]>dist[u]+w_uv){
+                        dist[v] = dist[u] + w_uv;
+                        prev[v] = u;
+                    }
+                }
+            }
+        }
+        // apply one more Bellman-Ford algorithm to detect negative cycle
+        // ArrayList<Integer> lastRelaxedNodes = new ArrayList<Integer>();
+        for (int u=0; u<adj.length; u++){
+            for (int i=0; i<adj[u].size(); i++){
+                int v = adj[u].get(i);
+                int w_uv = cost[u].get(i);
+                if (dist[u]!=Integer.MAX_VALUE && dist[v]>dist[u]+w_uv){
+                    return 1;
+                    // dist[v] = dist[u] + w_uv;
+                    // prev[v] = u;
+                    // lastRelaxedNodes.add(v);
+                }
+            }
+        }
+
         return 0;
     }
 
