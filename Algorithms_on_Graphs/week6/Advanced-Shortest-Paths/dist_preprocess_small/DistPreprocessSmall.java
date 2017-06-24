@@ -20,6 +20,9 @@ public class DistPreprocessSmall {
         // Level of the node for level heuristic in the node ordering
         Long[] level;
 
+        // Flag nodes that are already processed in forward or backward search
+        boolean[][] processed; 
+
         Impl(int n) {
             this.n = n;
             visited = new boolean[n];
@@ -36,6 +39,7 @@ public class DistPreprocessSmall {
             queue = new ArrayList<PriorityQueue<Entry>>();
             queue.add(new PriorityQueue<Entry>(n));
             queue.add(new PriorityQueue<Entry>(n));
+            processed = new boolean[][]{new boolean[n], new boolean[n]};
         }
 
         // Preprocess the graph
@@ -43,6 +47,9 @@ public class DistPreprocessSmall {
             // This priority queue will contain pairs (importance, node) with the least important node in the head
             PriorityQueue<Entry> q = new PriorityQueue<Entry>(n);
             // Implement this method yourself
+            for (int v=0; v<n; v++){
+                
+            }
         }
 
         void add_edge(int side, int u, int v, Long c) {
