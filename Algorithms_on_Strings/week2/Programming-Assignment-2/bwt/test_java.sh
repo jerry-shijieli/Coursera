@@ -4,7 +4,7 @@
 #     CODE=$f
 # done
 # PROGRAM=${CODE%.*}
-PROGRAM=SuffixTree
+PROGRAM=BurrowsWheelerTransform
 SAMPLE=$1
 echo "Compile $PROGRAM.java:"
 javac -encoding UTF-8 $PROGRAM.java
