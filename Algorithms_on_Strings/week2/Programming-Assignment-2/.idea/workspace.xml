@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0968c94f-9cb3-4683-8c81-666e97b4dc1b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform$FastScanner.class" afterPath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform$FastScanner.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform$Row.class" afterPath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform$Row.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform.class" afterPath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform.java" afterPath="$PROJECT_DIR$/bwt/BurrowsWheelerTransform.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/suffix_array/SuffixArray.java" afterPath="$PROJECT_DIR$/suffix_array/SuffixArray.java" />
-    </list>
+    <list default="true" id="0968c94f-9cb3-4683-8c81-666e97b4dc1b" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -551,12 +544,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1498596176895</updated>
-      <workItem from="1498596180343" duration="9656000" />
+      <workItem from="1498596180343" duration="9675000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9656000" />
+    <option name="totallyTimeSpent" value="9675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
