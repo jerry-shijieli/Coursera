@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0968c94f-9cb3-4683-8c81-666e97b4dc1b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bwtinverse/sample_tests/sample1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bwtinverse/sample_tests/sample1.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bwtinverse/sample_tests/sample2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bwtinverse/sample_tests/sample2.a" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bwtinverse/InverseBWT.java" afterPath="$PROJECT_DIR$/bwtinverse/InverseBWT.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bwmatching/sample_tests/sample1" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bwmatching/sample_tests/sample1.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bwmatching/sample_tests/sample2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bwmatching/sample_tests/sample2.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bwmatching/sample_tests/sample3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bwmatching/sample_tests/sample3.a" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bwmatching/BWMatching.java" afterPath="$PROJECT_DIR$/bwmatching/BWMatching.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,7 +24,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="InverseBWT.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InverseBWT.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bwtinverse/InverseBWT.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="363">
@@ -36,11 +38,34 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="BWMatching.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bwmatching/BWMatching.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="361">
+              <caret line="82" column="17" lean-forward="false" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3860#3880#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SuffixArray.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/suffix_array/SuffixArray.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="BurrowsWheelerTransform.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bwt/BurrowsWheelerTransform.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="29" column="5" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
+              <caret line="29" column="5" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -67,6 +92,7 @@
         <option value="$PROJECT_DIR$/bwtinverse/test_java.sh" />
         <option value="$PROJECT_DIR$/bwtinverse/test_java_all.sh" />
         <option value="$PROJECT_DIR$/bwtinverse/InverseBWT.java" />
+        <option value="$PROJECT_DIR$/bwmatching/BWMatching.java" />
       </list>
     </option>
   </component>
@@ -119,7 +145,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bwtinverse" />
+              <option name="myItemId" value="suffix_array" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -522,12 +548,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1498596176895</updated>
-      <workItem from="1498596180343" duration="4483000" />
+      <workItem from="1498596180343" duration="7982000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4483000" />
+    <option name="totallyTimeSpent" value="7982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -609,7 +635,7 @@
     <entry file="file://$PROJECT_DIR$/bwt/BurrowsWheelerTransform.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
-          <caret line="29" column="5" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
+          <caret line="29" column="5" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -625,6 +651,25 @@
             <element signature="e#257#258#0" expanded="true" />
             <element signature="e#312#313#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bwmatching/BWMatching.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="82" column="17" lean-forward="false" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3860#3880#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/suffix_array/SuffixArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="4" column="24" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -33,6 +33,32 @@ public class BWMatching {
     //       from position 0 to position P inclusive.
     private void PreprocessBWT(String bwt, Map<Character, Integer> starts, Map<Character, int[]> occ_counts_before) {
         // Implement this function yourself
+        char[] tmp = bwt.toCharArray();
+        Arrays.sort(tmp);
+        String firstColumn = new String(tmp);
+        List<Character> alphabet = new ArrayList<>();
+        char cur;
+        char prev = cur = firstColumn.charAt(0);
+        starts.put(cur, 0);
+        alphabet.add(cur);
+        for (int i=0; i<firstColumn.length(); i++){
+            cur = firstColumn.charAt(i);
+            if (cur != prev){
+                starts.put(cur, i);
+                alphabet.add(cur);
+            }
+            prev = cur;
+        }
+        for (Character c: alphabet)
+            occ_counts_before.put(c, new int[bwt.length()+1]);
+        for (int i=0; i<bwt.length(); i++){
+            char c = bwt.charAt(i);
+            occ_counts_before.get(c)[i+1] = occ_counts_before.get(c)[i] + 1;
+            for (char cc: alphabet){
+                if (cc != c)
+                    occ_counts_before.get(cc)[i+1] = occ_counts_before.get(cc)[i];
+            }
+        }
     }
 
     // Compute the number of occurrences of string pattern in the text
@@ -40,6 +66,21 @@ public class BWMatching {
     // information we get from the preprocessing stage - starts and occ_counts_before.
     int CountOccurrences(String pattern, String bwt, Map<Character, Integer> starts, Map<Character, int[]> occ_counts_before) {
         // Implement this function yourself
+        int top = 0, bottom = bwt.length()-1, index = pattern.length()-1;
+        while (top < bottom){
+            if (index>=0){
+                char c = pattern.charAt(index--);
+                if (bwt.substring(top, bottom+1).contains(String.valueOf(c))){
+                    top = starts.get(c) + occ_counts_before.get(c)[top];
+                    bottom = starts.get(c) + occ_counts_before.get(c)[bottom+1] - 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return bottom-top+1;
+            }
+        }
+        return 0;
     }
 
     static public void main(String[] args) throws IOException {
