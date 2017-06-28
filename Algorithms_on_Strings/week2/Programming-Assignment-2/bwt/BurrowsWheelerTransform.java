@@ -13,19 +13,7 @@ public class BurrowsWheelerTransform {
 
         @Override
         public int compareTo(Row r2){
-            int i=0, j=0;
-            while (i<this.data.length() && j<r2.data.length()){
-                char c1 = this.data.charAt(i++), c2 = r2.data.charAt(j++);
-                if (c1!=c2 && c1=='$')
-                    return -1;
-                else if (c2!=c1 && c2=='$')
-                    return 1;
-                else if (c1 == c2)
-                    continue;
-                else
-                    return c1<c2? -1: 1;
-            }
-            return this.data.length()-r2.data.length();
+            return this.data.compareTo(r2.data);
         }
     }
 
