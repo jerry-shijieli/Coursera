@@ -4,6 +4,9 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class SuffixTreeFromArray {
+    public static final int ALPHABET_SIZE = 5;
+    public static final int NA = -1;
+
     class FastScanner {
         StringTokenizer tok = new StringTokenizer("");
         BufferedReader in;
@@ -20,6 +23,18 @@ public class SuffixTreeFromArray {
 
         int nextInt() throws IOException {
             return Integer.parseInt(next());
+        }
+    }
+
+    // convert letter to number in lexicographical order
+    private int c2n(char firstLetter){
+        switch(firstLetter){
+            case '$': return 0;
+            case 'A': return 1;
+            case 'C': return 2;
+            case 'G': return 3;
+            case 'T': return 4;
+            default: return -1;
         }
     }
 
@@ -41,6 +56,24 @@ public class SuffixTreeFromArray {
         }
     }
 
+    // Data structure to store node of a suffix tree.
+    public class SuffixTreeNode {
+        int parent;
+        int[] children;
+        int stringDepth;
+        int edgeStart;
+        int edgeEnd;
+
+        SuffixTreeNode(int parent, int stringDepth, int edgeStart, int edgeEnd){
+            children = new int[ALPHABET_SIZE];
+            Arrays.fill(children, NA);
+            this.parent = parent;
+            this.stringDepth = stringDepth;
+            this.edgeStart = edgeStart;
+            this.edgeEnd = edgeEnd;
+        }
+    }
+
     // Build suffix tree of the string text given its suffix array suffix_array
     // and LCP array lcp_array. Return the tree as a mapping from a node ID
     // to the list of all outgoing edges of the corresponding node. The edges in the
@@ -58,9 +91,79 @@ public class SuffixTreeFromArray {
             final String text) {
         Map<Integer, List<Edge>> tree = new HashMap<Integer, List<Edge>>();
         // Implement this function yourself
+        List<SuffixTreeNode> suffix_tree = new ArrayList<>();
+        // add root node
+        SuffixTreeNode root = new SuffixTreeNode(NA, 0, NA, NA);
+        suffix_tree.add(root);
+        int lcpPrev = 0;
+        int curNodeIndex = 0;
+        for (int order=0; order<suffixArray.length; order++){
+            int suffix = suffixArray[order];
+            SuffixTreeNode curNode = suffix_tree.get(curNodeIndex);
+            while (curNode.stringDepth > lcpPrev){
+                curNodeIndex = curNode.parent;
+                curNode = suffix_tree.get(curNodeIndex);
+            }
+            if (curNode.stringDepth == lcpPrev){
+                curNodeIndex = createNewLeaf(suffix_tree, curNodeIndex, text, suffix);
+            } else {
+                int edgeStart = suffixArray[order-1] + curNode.stringDepth;
+                int offset = lcpPrev - curNode.stringDepth;
+                int midNodeIndex = breakEdge(suffix_tree, curNodeIndex, text, edgeStart, offset);
+                curNodeIndex = createNewLeaf(suffix_tree, midNodeIndex, text, suffix);
+            }
+            if (order < text.length()-1)
+                lcpPrev = lcpArray[order];
+        }
+
+        System.out.println(suffix_tree.size());
+
+        for (int nodeIndex=0; nodeIndex<suffix_tree.size(); nodeIndex++){
+            SuffixTreeNode curNode = suffix_tree.get(nodeIndex);
+            tree.put(nodeIndex, new ArrayList<Edge>());
+            boolean hasNoChildren = true;
+            for (int childIndex: curNode.children){
+                if (childIndex != NA){
+                    hasNoChildren = false;
+                    tree.get(nodeIndex).add(new Edge(childIndex,
+                            suffix_tree.get(childIndex).edgeStart, suffix_tree.get(childIndex).edgeEnd+1));
+                }
+            }
+            if (hasNoChildren)
+                tree.remove(nodeIndex);
+        }
+
         return tree;
     }
 
+    private int breakEdge(List<SuffixTreeNode> suffix_tree, int curNodeIndex, String text, int start, int offset) {
+        int startCharCode = c2n(text.charAt(start));
+        int midCharCode = c2n(text.charAt(start+offset));
+        SuffixTreeNode curNode = suffix_tree.get(curNodeIndex);
+        SuffixTreeNode midNode = new SuffixTreeNode(curNodeIndex,
+                curNode.stringDepth+offset,
+                start, start+offset-1);
+        suffix_tree.add(midNode);
+        int midNodeIndex = suffix_tree.size() - 1;
+        midNode.children[midCharCode] = curNode.children[startCharCode];
+        SuffixTreeNode childNode = suffix_tree.get(curNode.children[startCharCode]);
+        childNode.parent = midNodeIndex;
+        childNode.edgeStart = start + offset;
+        curNode.children[startCharCode] = midNodeIndex;
+        return midNodeIndex;
+    }
+
+    private int createNewLeaf(List<SuffixTreeNode> suffix_tree, int curNodeIndex, String text, int suffix) {
+        SuffixTreeNode curNode = suffix_tree.get(curNodeIndex);
+        SuffixTreeNode leaf = new SuffixTreeNode(curNodeIndex,
+                text.length()-suffix,
+                suffix+curNode.stringDepth,
+                text.length()-1);
+        suffix_tree.add(leaf);
+        int leafIndex = suffix_tree.size()-1;
+        suffix_tree.get(curNodeIndex).children[c2n(text.charAt(leaf.edgeStart))] = leafIndex;
+        return leafIndex;
+    }
 
     static public void main(String[] args) throws IOException {
         new SuffixTreeFromArray().run();
