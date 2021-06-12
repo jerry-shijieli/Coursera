@@ -4,12 +4,18 @@ public class CoveringSegments {
 
     private static int[] optimalPoints(Segment[] segments) {
         //write your code here
-        int[] points = new int[2 * segments.length];
-        for (int i = 0; i < segments.length; i++) {
-            points[2 * i] = segments[i].start;
-            points[2 * i + 1] = segments[i].end;
+        Arrays.sort(segments, (s1, s2) -> s1.end - s2.end);
+
+        List<Integer> markers = new ArrayList<>();
+        int pos = -1;
+        for (Segment seg: segments) {
+            if (pos < seg.start) {
+                pos = seg.end;
+                markers.add(pos);
+            }
         }
-        return points;
+
+        return markers.stream().mapToInt(i -> i).toArray();
     }
 
     private static class Segment {
