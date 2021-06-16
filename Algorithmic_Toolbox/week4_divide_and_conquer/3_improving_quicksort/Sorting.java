@@ -6,12 +6,28 @@ public class Sorting {
 
     private static int[] partition3(int[] a, int l, int r) {
       //write your code here
-
-
       int m1 = l;
       int m2 = r;
+      int pivot = a[m1];
+      for (int i=l+1; i <= r; i++) {
+          if (a[i] < pivot) {
+              swap(a, ++m1, i);
+          }
+      }
+      swap(a, m1, l);
+      for (int i=r; i >= m1; i--) {
+          if (a[i] > pivot) {
+              swap(a, m2--, i);
+          }
+      }
       int[] m = {m1, m2};
       return m;
+    }
+
+    private static void swap(int[] a, int i, int j) {
+        int tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
     }
 
     private static int partition2(int[] a, int l, int r) {

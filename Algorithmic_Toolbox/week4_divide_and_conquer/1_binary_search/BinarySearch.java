@@ -4,8 +4,19 @@ import java.util.*;
 public class BinarySearch {
 
     static int binarySearch(int[] a, int x) {
-        int left = 0, right = a.length;
+        int left = 0, right = a.length - 1;
         //write your code here
+        while (left <= right) {
+            int mid = (right - left) / 2 + left;
+            if (a[mid] == x) {
+                return mid;
+            } else if (a[mid] < x) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+
+        }
 
         return -1;
     }
